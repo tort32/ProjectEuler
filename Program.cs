@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using ProjectEuler.Problems;
 
 namespace ProjectEuler
 {
@@ -12,7 +10,7 @@ namespace ProjectEuler
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            ProblemBase problem = new Problem7();
+            ProblemBase problem = new Problem8();
             Decimal solution = problem.Solve();
 
             watch.Stop();
