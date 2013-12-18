@@ -26,7 +26,7 @@ namespace ProjectEuler.Problems
             }*/
         }
 
-        public decimal Solve()
+        public ulong Solve()
         {
             //Console.WriteLine(string.Join(", ", mPrime));
             return mPrime[MAX_COUNT-1];

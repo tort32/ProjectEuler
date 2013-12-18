@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace ProjectEuler.Utils
 {
-  class PrimeNumbers : IEnumerable<int>
+  class PrimeNumbers : IEnumerable<ulong>
   {
     static PrimeNumbers()
     {
-      mPrimes = new List<int> { 2, 3 };
+      mPrimes = new List<ulong> { 2, 3 };
     }
 
-    public IEnumerator<int> GetEnumerator()
+    public IEnumerator<ulong> GetEnumerator()
     {
-      foreach (int prime in mPrimes)
+      foreach (ulong prime in mPrimes)
       {
         yield return prime;
       }
@@ -29,7 +29,7 @@ namespace ProjectEuler.Utils
       return GetEnumerator();
     }
 
-    public int this[int index]
+    public ulong this[int index]
     {
       get
       {
@@ -44,12 +44,12 @@ namespace ProjectEuler.Utils
       }
     }
 
-    private int ComputeNextPrime(int starting)
+    private ulong ComputeNextPrime(ulong starting)
     {
-      int number = starting;
+      ulong number = starting;
       while (true)
       {
-        int firstDevider = mPrimes.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number % prime == 0);
+        ulong firstDevider = mPrimes.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number % prime == 0);
         if (firstDevider == 0)
         {
           mPrimes.Add(number);
@@ -59,6 +59,6 @@ namespace ProjectEuler.Utils
       }
     }
 
-    private static List<int> mPrimes;
+    private static List<ulong> mPrimes;
   }
 }

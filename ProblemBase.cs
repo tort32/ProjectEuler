@@ -7,6 +7,6 @@ namespace ProjectEuler
 {
     interface ProblemBase
     {
-        decimal Solve();
+        ulong Solve();
     }
 }
