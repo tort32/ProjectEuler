@@ -9,7 +9,7 @@ namespace ProjectEuler.Utils
   {
     static PrimeNumbers()
     {
-      mPrimes = new List<int> { 2 };
+      mPrimes = new List<int> { 2, 3 };
     }
 
     public IEnumerator<int> GetEnumerator()
@@ -20,7 +20,7 @@ namespace ProjectEuler.Utils
       }
       while (true)
       {
-        yield return ComputeNextPrime(mPrimes.Last() + 1);
+        yield return ComputeNextPrime(mPrimes.Last() + 2);
       }
     }
 
@@ -55,7 +55,7 @@ namespace ProjectEuler.Utils
           mPrimes.Add(number);
           return number;
         }
-        ++number;
+        number += 2;
       }
     }
 
