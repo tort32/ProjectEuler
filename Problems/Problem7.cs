@@ -29,8 +29,7 @@ namespace ProjectEuler.Problems
         public decimal Solve()
         {
             //Console.WriteLine(string.Join(", ", mPrime));
-            //return mPrime[MAX_COUNT-1];
-            return mPrime[MAX_COUNT - 1];
+            return mPrime[MAX_COUNT-1];
         }
 
         //private List<int> mPrime = new List<int>(MAX_COUNT);

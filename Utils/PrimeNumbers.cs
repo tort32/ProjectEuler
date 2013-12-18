@@ -5,30 +5,22 @@ using System.Linq;
 
 namespace ProjectEuler.Utils
 {
-  class PrimeNumbers : IEnumerable<decimal>
+  class PrimeNumbers : IEnumerable<int>
   {
     static PrimeNumbers()
     {
-      mPrimes = new List<decimal> { 2 };
+      mPrimes = new List<int> { 2 };
     }
-    public IEnumerator<decimal> GetEnumerator()
+
+    public IEnumerator<int> GetEnumerator()
     {
-      foreach (decimal prime in mPrimes)
+      foreach (int prime in mPrimes)
       {
-        //Console.WriteLine(prime);
         yield return prime;
       }
-      decimal number = mPrimes.Last() + 1;
       while (true)
       {
-        decimal firstDevider = mPrimes.FirstOrDefault(prime => number % prime == 0);
-        if (firstDevider == 0)
-        {
-          //Console.WriteLine(number);
-          mPrimes.Add(number);
-          yield return number;
-        }
-        ++number;
+        yield return ComputeNextPrime(mPrimes.Last() + 1);
       }
     }
 
@@ -37,23 +29,36 @@ namespace ProjectEuler.Utils
       return GetEnumerator();
     }
 
-    public decimal this[int i]
+    public int this[int index]
     {
       get
       {
-        if (i < mPrimes.Count)
+        if (index < mPrimes.Count)
         {
-          return mPrimes[i];
+          return mPrimes[index];
         }
         else
         {
-          var enumerable = this.Take(i + 1);
-          decimal value = enumerable.Last();
-          return value;
+          return this.Skip(index).First();
         }
       }
     }
 
-    private static List<decimal> mPrimes;
+    private int ComputeNextPrime(int starting)
+    {
+      int number = starting;
+      while (true)
+      {
+        int firstDevider = mPrimes.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number % prime == 0);
+        if (firstDevider == 0)
+        {
+          mPrimes.Add(number);
+          return number;
+        }
+        ++number;
+      }
+    }
+
+    private static List<int> mPrimes;
   }
 }
