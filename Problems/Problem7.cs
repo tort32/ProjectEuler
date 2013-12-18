@@ -14,7 +14,7 @@ namespace ProjectEuler.Problems
 
         public Problem7()
         {
-            int number = 2;
+            /*int number = 2;
             while (mPrime.Count < MAX_COUNT)
             {
                 int firstDevider = mPrime.FirstOrDefault(prime => number % prime == 0);
@@ -23,16 +23,17 @@ namespace ProjectEuler.Problems
                     mPrime.Add(number);
                 }
                 ++number;
-            }
+            }*/
         }
 
-        public Decimal Solve()
+        public decimal Solve()
         {
             //Console.WriteLine(string.Join(", ", mPrime));
-
-            return mPrime[MAX_COUNT-1];
+            //return mPrime[MAX_COUNT-1];
+            return mPrime[MAX_COUNT - 1];
         }
 
-        private List<int> mPrime = new List<int>(MAX_COUNT);
+        //private List<int> mPrime = new List<int>(MAX_COUNT);
+        private Utils.PrimeNumbers mPrime = new Utils.PrimeNumbers();
     }
 }

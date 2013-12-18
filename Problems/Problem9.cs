@@ -13,16 +13,16 @@ namespace ProjectEuler.Problems
   class Problem9: ProblemBase
   {
     private const double EPSILON = 1e-6;
-    public Decimal Solve()
+    public decimal Solve()
     {
-      Decimal aValue = 0, bValue = 0, cValue = 0;
+      decimal aValue = 0, bValue = 0, cValue = 0;
       for (int a = 1; a < 1000; ++a )
       {
         double b = (double)(1000*1000 - 2000*a)/(double)(2000 - 2*a);
         if (Math.Abs(Math.Floor(b) - b) < EPSILON)
         {
           aValue = a;
-          bValue = (Decimal)Math.Floor(b);
+          bValue = (decimal)Math.Floor(b);
           break;
         }
       }

@@ -36,7 +36,7 @@ namespace ProjectEuler.Problems
       }
     }
 
-    public Decimal Solve()
+    public decimal Solve()
     {
       int max = 0;
       for (int nDigit = 0; nDigit < mData.Length - 5; ++nDigit)
