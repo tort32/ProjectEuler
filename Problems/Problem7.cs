@@ -14,25 +14,27 @@ namespace ProjectEuler.Problems
 
         public Problem7()
         {
-            /*int number = 2;
+            /*mPrime.Add(2);
+            mPrime.Add(3);
+            uint number = 5;
             while (mPrime.Count < MAX_COUNT)
             {
-                int firstDevider = mPrime.FirstOrDefault(prime => number % prime == 0);
-                if (firstDevider == 0)
-                {
-                    mPrime.Add(number);
-                }
-                ++number;
+              uint firstDevider = mPrime.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number % prime == 0);
+              if (firstDevider == 0)
+              {
+                  mPrime.Add(number);
+              }
+              number += 2;
             }*/
         }
 
         public ulong Solve()
         {
             //Console.WriteLine(string.Join(", ", mPrime));
-            return mPrime[MAX_COUNT-1];
+            return (ulong)mPrime[MAX_COUNT-1];
         }
 
-        //private List<int> mPrime = new List<int>(MAX_COUNT);
+        //private List<uint> mPrime = new List<uint>(MAX_COUNT);
         private Utils.PrimeNumbers mPrime = new Utils.PrimeNumbers();
     }
 }

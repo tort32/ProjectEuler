@@ -31,17 +31,7 @@ namespace ProjectEuler.Utils
 
     public ulong this[int index]
     {
-      get
-      {
-        if (index < mPrimes.Count)
-        {
-          return mPrimes[index];
-        }
-        else
-        {
-          return this.Skip(index).First();
-        }
-      }
+      get { return (index < mPrimes.Count) ? mPrimes[index] : this.Skip(index).First(); }
     }
 
     private ulong ComputeNextPrime(ulong starting)
@@ -55,7 +45,8 @@ namespace ProjectEuler.Utils
           mPrimes.Add(number);
           return number;
         }
-        number += 2;
+        number += (number % 6 == 1) ? 4U : 2U;
+        //number += 2;
       }
     }
 
