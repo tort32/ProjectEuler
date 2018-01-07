@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ProjectEuler")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sperasoft INC")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ProjectEuler")]
-[assembly: AssemblyCopyright("Copyright © Sperasoft INC 2013")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
