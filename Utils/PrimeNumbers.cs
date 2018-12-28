@@ -92,6 +92,40 @@ namespace ProjectEuler.Utils
       get { return (index < mPrimes.Count) ? mPrimes[index] : this.Skip(index).First(); }
     }
 
+    public bool isPrime(ulong n)
+    {
+      int lnN = (int) Math.Floor(Math.Log(n));
+      int index = 0;
+      if (lnN < mSearchPrimeMaxRow)
+      {
+        // Interpolation
+        ulong tmp = (mSearchPrimeIndex[lnN + 1] - mSearchPrimeIndex[lnN]) * (n - mSearchPrimeValue[lnN]);
+        tmp = mSearchPrimeIndex[lnN] + tmp / (mSearchPrimeValue[lnN + 1] - mSearchPrimeValue[lnN]);
+        index = (int) tmp;
+      }
+      else
+      {
+        // Extrapolation
+        index = (int)(n * mSearchPrimeExRatio);
+      }
+      ulong prime = this[index];
+      if (n > prime)
+      {
+        while (n > (prime = this[++index])) ;
+      }
+      else if (n < prime)
+      {
+        while (n < (prime = this[--index])) ;
+      }
+      return (n == prime);
+    }
+
     private static List<ulong> mPrimes;
+
+    // Approximation table to find index by prime number value
+    private static ulong[] mSearchPrimeIndex = {0, 1, 4, 8, 16, 34, 79, 183, 429, 1019, 2466, 6048};
+    private static ulong[] mSearchPrimeValue = {2, 3, 11, 23, 59, 149, 409, 1097, 2999, 8111, 22027, 59879};
+    private static int mSearchPrimeMaxRow = mSearchPrimeIndex.Length - 1;
+    private static double mSearchPrimeExRatio = mSearchPrimeIndex[mSearchPrimeMaxRow] / mSearchPrimeValue[mSearchPrimeMaxRow];
   }
 }

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FactorialTest.cs" />
+    <Compile Include="PrimeNumbersTest.cs" />
     <Compile Include="Problem12Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

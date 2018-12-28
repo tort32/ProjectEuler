@@ -10,7 +10,7 @@ namespace ProjectEuler
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            ProblemBase problem = new Problem24();
+            ProblemBase problem = new Problem27();
             Decimal solution = problem.Solve();
 
             watch.Stop();
