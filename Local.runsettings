@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>1</MaxCpuCount>
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+    <TargetPlatform>x64</TargetPlatform>
+    <TargetFrameworkVersion>Framework45</TargetFrameworkVersion>
+    <TestSessionTimeout>60000</TestSessionTimeout>
+  </RunConfiguration>
+</RunSettings>

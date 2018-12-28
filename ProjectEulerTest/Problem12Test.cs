@@ -1,14 +1,13 @@
-﻿using ProjectEuler.Problems;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using ProjectEuler.Utils;
 
 namespace ProjectEulerTest
 {
-  [TestClass()]
+  [TestClass]
   public class Problem12Test
   {
-    [TestMethod()]
+    [TestMethod]
     public void CalculateNumberOfDevidersTest()
     {
       Assert.AreEqual(2u, Dividers.getNumberOfDeviders(3));
