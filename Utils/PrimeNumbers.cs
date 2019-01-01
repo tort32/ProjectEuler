@@ -12,8 +12,6 @@ namespace ProjectEuler.Utils
       mPrimes = new List<ulong> { 2, 3 };
     }
 
-    
-
     public IEnumerator<ulong> GetEnumerator()
     {
       foreach (ulong prime in mPrimes)
@@ -26,22 +24,21 @@ namespace ProjectEuler.Utils
       watch.Start();
 
       // Computing Eratosthenes sieve
-      const int SIEVE_SIZE = 2097152;
       if (number < SIEVE_SIZE)
       {
         // Bit array present only odd-value numbers
         // So starting from prime 3
-        BitArray sieve = new BitArray(SIEVE_SIZE/2, true);
+        BitArray sieve = new BitArray(SIEVE_SIZE / 2, true);
         for (int nPrime = 1; nPrime < mPrimes.Count; ++nPrime)
         {
-          int prime = (int) mPrimes[nPrime];
+          int prime = (int)mPrimes[nPrime];
 
-          if (prime <= (SIEVE_SIZE - 1)/prime)
+          if (prime <= (SIEVE_SIZE - 1) / prime)
           {
             // Markout multiples of prime number starting (p^2) stepping 2p
-            for (int idx = prime*prime; idx < SIEVE_SIZE; idx += 2*prime)
+            for (int idx = prime * prime; idx < SIEVE_SIZE; idx += 2 * prime)
             {
-              sieve[(idx-1)/2] = false;
+              sieve[(idx - 1) / 2] = false;
             }
           }
 
@@ -50,9 +47,9 @@ namespace ProjectEuler.Utils
           {
             for (int idx = (prime + 2); idx < SIEVE_SIZE; idx += 2)
             {
-              if (sieve[(idx - 1)/2])
+              if (sieve[(idx - 1) / 2])
               {
-                ulong next_prime = (ulong) idx;
+                ulong next_prime = (ulong)idx;
                 mPrimes.Add(next_prime);
                 yield return next_prime;
                 break;
@@ -60,6 +57,7 @@ namespace ProjectEuler.Utils
             }
           }
         }
+        mSieve = sieve; // Eratosthenes sieve is filled
         number = mPrimes.Last();
       }
 
@@ -68,17 +66,16 @@ namespace ProjectEuler.Utils
 
       while (true)
       {
-        number += (number%6 == 1) ? 4U : 2U;
+        number += (number % 6 == 1) ? 4U : 2U;
 
         ulong firstDevider =
-          mPrimes.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number%prime == 0);
+          mPrimes.TakeWhile(prime => prime <= Math.Sqrt(number)).FirstOrDefault(prime => number % prime == 0);
 
         if (firstDevider == 0)
         {
           mPrimes.Add(number);
           yield return number;
         }
-
       }
     }
 
@@ -92,22 +89,21 @@ namespace ProjectEuler.Utils
       get { return (index < mPrimes.Count) ? mPrimes[index] : this.Skip(index).First(); }
     }
 
-    public bool isPrime(ulong n)
+    public bool IsPrime(ulong n)
     {
-      int lnN = (int) Math.Floor(Math.Log(n));
-      int index = 0;
-      if (lnN < mSearchPrimeMaxRow)
+      if (n == 1)
+        return true;
+      if (n % 2 == 0)
+        return false;
+      // Search in primes number sieve
+      if (mSieve != null && n < SIEVE_SIZE)
       {
-        // Interpolation
-        ulong tmp = (mSearchPrimeIndex[lnN + 1] - mSearchPrimeIndex[lnN]) * (n - mSearchPrimeValue[lnN]);
-        tmp = mSearchPrimeIndex[lnN] + tmp / (mSearchPrimeValue[lnN + 1] - mSearchPrimeValue[lnN]);
-        index = (int) tmp;
+        int sieveIdx = (int)((n - 1) / 2);
+        if (mSieve[sieveIdx])
+          return true;
       }
-      else
-      {
-        // Extrapolation
-        index = (int)(n * mSearchPrimeExRatio);
-      }
+      // Search in primes number seqence
+      int index = IndexLookupTable.EstimateNearestPrimeIndex(n);
       ulong prime = this[index];
       if (n > prime)
       {
@@ -122,10 +118,48 @@ namespace ProjectEuler.Utils
 
     private static List<ulong> mPrimes;
 
-    // Approximation table to find index by prime number value
-    private static ulong[] mSearchPrimeIndex = {0, 1, 4, 8, 16, 34, 79, 183, 429, 1019, 2466, 6048};
-    private static ulong[] mSearchPrimeValue = {2, 3, 11, 23, 59, 149, 409, 1097, 2999, 8111, 22027, 59879};
-    private static int mSearchPrimeMaxRow = mSearchPrimeIndex.Length - 1;
-    private static double mSearchPrimeExRatio = mSearchPrimeIndex[mSearchPrimeMaxRow] / mSearchPrimeValue[mSearchPrimeMaxRow];
+    private BitArray mSieve;
+    private const int SIEVE_SIZE = 2097152;
+
+    struct IndexLookupTable
+    {
+      // Approximation table to find index by prime number value
+      private static long[] mSearchPrimeIndices = { 0, 1, 4, 8, 16, 34, 79, 183, 429, 1019, 2466, 6048 };
+      private static long[] mSearchPrimeValues = { 2, 3, 11, 23, 59, 149, 409, 1097, 2999, 8111, 22027, 59879 };
+      private static int mSearchPrimeMaxRow = mSearchPrimeIndices.Length - 1;
+      private static long[] mSearchPrimeIntIndexDiffs = new long[mSearchPrimeMaxRow];
+      private static long[] mSearchPrimeIntValueDiffs = new long[mSearchPrimeMaxRow];
+      private static double mSearchPrimeExtRatio;
+
+      static IndexLookupTable() {
+        for (int i = 0; i < mSearchPrimeMaxRow; ++i)
+        {
+          mSearchPrimeIntIndexDiffs[i] = mSearchPrimeIndices[i + 1] - mSearchPrimeIndices[i];
+          mSearchPrimeIntValueDiffs[i] = mSearchPrimeValues[i + 1] - mSearchPrimeValues[i];
+        }
+        mSearchPrimeExtRatio = mSearchPrimeIndices[mSearchPrimeMaxRow] / mSearchPrimeValues[mSearchPrimeMaxRow];
+      }
+
+      public static int EstimateNearestPrimeIndex(ulong n)
+      {
+        int tableIndex = (int)Math.Floor(Math.Log(n));
+        int index = 0;
+        if (tableIndex < mSearchPrimeMaxRow)
+        {
+          // Interpolation
+          long tmp = (long)n - mSearchPrimeValues[tableIndex];
+          tmp *= mSearchPrimeIntIndexDiffs[tableIndex];
+          tmp /= mSearchPrimeIntValueDiffs[tableIndex];
+          tmp += mSearchPrimeIndices[tableIndex];
+          index = (int)tmp;
+        }
+        else
+        {
+          // Extrapolation
+          index = (int)(n * mSearchPrimeExtRatio);
+        }
+        return index;
+      }
+    }
   }
 }

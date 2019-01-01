@@ -11,11 +11,11 @@ namespace ProjectEuler.Problems
 
       long ab = Int64.MaxValue;
       int nMax = 0;
-      for (int a = 9; a >= -9; --a)
+      for (int a = 999; a >= -999; --a)
       {
         int bIdx = 0;
         int b = (int)primes[bIdx];
-        while(b < 100)
+        do
         {
           int n = 0;
           do
@@ -23,18 +23,18 @@ namespace ProjectEuler.Problems
             int m = n * n + a * n + b;
             if (m <= 0)
               break;
-            ulong m2 = (ulong) m;
-            if (!primes.isPrime(m2))
+            ulong m2 = (ulong)m;
+            if (!primes.IsPrime(m2))
               break;
             ++n;
           } while (true);
-          if(n > nMax)
+          if (n > nMax)
           {
             nMax = n;
             ab = a * b;
           }
-          ++bIdx;
-        }
+          b = (int)primes[++bIdx];
+        } while (b <= 1000);
       }
       Console.Out.WriteLine(ab);
       return (ulong)ab;
