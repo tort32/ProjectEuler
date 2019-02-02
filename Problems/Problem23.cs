@@ -10,7 +10,7 @@ namespace ProjectEuler.Problems
   {
     public ulong Solve()
     {
-      return Dividers.getSumOfDividers(1);
+      return Dividers.GetSumOfDividers(1);
     }
   }
 }

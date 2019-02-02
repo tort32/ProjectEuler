@@ -12,7 +12,7 @@ namespace ProjectEuler.Utils
      * Calculate the sum of deviders of x including 1, but excluding x
      * Exaplme for 12: 1 + 2 + 3 + 4 + 6 = 16
      */
-    static public uint getSumOfDividers(uint x)
+    static public uint GetSumOfDividers(uint x)
     {
       Debug.Assert(x > 1, "The argument should be not less than 2");
 
@@ -34,7 +34,7 @@ namespace ProjectEuler.Utils
      * Calculate the number of all deviders of x including 1 and x
      * Example 6 for 28: 1, 2, 4, 7, 14, 28
      */
-    static public uint getNumberOfDeviders(ulong x)
+    static public uint GetNumberOfDeviders(ulong x)
     {
       Debug.Assert(x > 1, "The argument should be not less than 2");
       
@@ -46,6 +46,31 @@ namespace ProjectEuler.Utils
       }
 
       return dividersCount;
+    }
+
+    /*
+     * Calculate greatest common divisor of two positive integer numbers.
+     * Example gcd(48, 180) = 12:
+     *    48 = 2 × 2 × 2 × 2 × 3,
+     *   180 = 2 × 2 ×         3 × 3 × 5,
+     *    12 = 2 x 2 x         3.
+     */
+    static public ulong GreatestCommonDivisor(ulong a, ulong b)
+    {
+      ulong gcd = 1;
+      PrimeNumbers primes = new PrimeNumbers();
+      foreach (ulong p in primes)
+      {
+        if (a < p || b < p)
+          break;
+        while (a % p == 0 && b % p == 0)
+        {
+          gcd *= p;
+          a /= p;
+          b /= p;
+        }
+      }
+      return gcd;
     }
   }
 }

@@ -31,7 +31,7 @@ namespace ProjectEuler.Problems
       do
       {
         triangleNumber += (++i);
-        dividersCount = Dividers.getNumberOfDeviders(triangleNumber);
+        dividersCount = Dividers.GetNumberOfDeviders(triangleNumber);
         if (i%100 == 0)
         {
           Console.WriteLine("[{0}] {1} / {2}", i, triangleNumber, dividersCount);

@@ -22,7 +22,7 @@ namespace ProjectEuler.Problems
       m[1] = 1;
       for (uint i = 2; i < MAX_NUMBER; ++i)
       {
-        m[i] = Dividers.getSumOfDividers(i);
+        m[i] = Dividers.GetSumOfDividers(i);
       }
       ulong sum = 0;
       for (uint a = 1; a < MAX_NUMBER; ++a)
