@@ -1,23 +1,31 @@
 ﻿using System;
+using System.Diagnostics;
 using ProjectEuler.Problems;
 
 namespace ProjectEuler
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            var watch = new System.Diagnostics.Stopwatch();
-            watch.Start();
+      var watch = new System.Diagnostics.Stopwatch();
+      watch.Start();
 
-            ProblemBase problem = new Problem33();
-            Decimal solution = problem.Solve();
+      ProblemBase problem = new Problem40();
+      Decimal solution = problem.Solve();
 
-            watch.Stop();
-            double total = watch.Elapsed.TotalMilliseconds;
-            Console.WriteLine("===============================================================================");
-            Console.WriteLine("Elapsed: {0}{1}\t\tSolution: {2}",
-                watch.Elapsed, (total > 1000.0f) ? "  !!! TIMEOUT !!!": string.Empty, solution);
-        }
+      watch.Stop();
+      double total = watch.Elapsed.TotalMilliseconds;
+      PrintLine("===============================================================================");
+      PrintLine(String.Format("Elapsed: {0}{1}",
+        watch.Elapsed, (total > 1000.0f) ? "  !!! TIMEOUT !!!" : string.Empty));
+      PrintLine(String.Format("Solution: {0}", solution));
     }
+
+    static void PrintLine(string msg)
+    {
+      Trace.WriteLine(msg);
+      Console.WriteLine(msg);
+    }
+  }
 }

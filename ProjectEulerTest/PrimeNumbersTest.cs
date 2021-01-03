@@ -32,7 +32,7 @@ namespace ProjectEulerTest
       {
         int index = i * 31;
         ulong prime = primes[index];
-        Assert.AreEqual(true, primes.isPrime(prime));
+        Assert.AreEqual(true, primes.IsPrime(prime));
       }
     }
 
@@ -46,7 +46,7 @@ namespace ProjectEulerTest
         ulong prime = primes[index];
         ulong nextPrime = primes[index + 1];
         for (ulong n = prime + 1; n < nextPrime; ++n)
-          Assert.AreEqual(false, primes.isPrime(n));
+          Assert.AreEqual(false, primes.IsPrime(n));
       }
     }
   }
