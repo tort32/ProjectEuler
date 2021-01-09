@@ -51,6 +51,9 @@ namespace ProjectEuler.Utils
       }
     }
 
+    /*
+     * Set of cards.
+     */
     public struct Set
     {
       public readonly ulong mask;
@@ -110,6 +113,11 @@ namespace ProjectEuler.Utils
         return (mask == 0);
       }
 
+      public int Count()
+      {
+        return BitOperations.PopCount(mask);
+      }
+
       public ulong GetMask()
       {
         return this.mask;
@@ -128,6 +136,9 @@ namespace ProjectEuler.Utils
       }
     }
 
+    /*
+     * Set of sets.
+     */
     public struct Combination
     {
       public readonly Set[] sets;
@@ -229,6 +240,13 @@ namespace ProjectEuler.Utils
         }
         return new Combination();
       }
+
+      public override string ToString()
+      {
+        ulong mask = this.mask;
+        var cardsStr = DECK.Where((card) => (mask & card.GetMask()) != 0).Select((card) => card.ToString());
+        return String.Join(" ", cardsStr);
+      }
     }
 
     public enum Value
@@ -246,7 +264,8 @@ namespace ProjectEuler.Utils
       Queen,
       King,
       Ace,
-      MaxValue
+      MaxValue,
+      Invalid = MaxValue
     }
 
     public enum Suit

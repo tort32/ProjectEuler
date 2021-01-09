@@ -131,5 +131,147 @@ namespace ProjectEulerTest
 
       Assert.IsTrue(hand1 > hand2);
     }
+
+    [TestMethod]
+    public void TestStraightFlush()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("3C 5C 6C 4C 7C");
+      Assert.IsTrue(hand.IsStraightFlush());
+      Assert.IsTrue(hand.IsStraight());
+      Assert.IsTrue(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Seven, hand.GetStraightHighestValue());
+    }
+
+    [TestMethod]
+    public void TestFourKind()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("QC QD 3C QH QS");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsTrue(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Queen, hand.GetFourValue());
+      Assert.AreEqual(Cards.Value.Three, hand.GetHighestCardValue());
+    }
+
+    [TestMethod]
+    public void TestFullHouse()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("KC KD 3C KH 3S");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsTrue(hand.IsFullhouse());
+      Assert.IsTrue(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsTrue(hand.HasPair());
+      Assert.AreEqual(Cards.Value.King, hand.GetThreeValue());
+      Assert.AreEqual(Cards.Value.Three, hand.GetFirstPairValue());
+    }
+
+    [TestMethod]
+    public void TestFlush()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("5H JH 3H TH 8H");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsTrue(hand.IsFlush());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Jack, hand.GetHighestCardValue());
+    }
+
+    [TestMethod]
+    public void TestStraight()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("6C TH 8S 7D 9H");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsTrue(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Ten, hand.GetStraightHighestValue());
+    }
+
+    [TestMethod]
+    public void TestThreeKind()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("KD 4C 8H 4D 4S");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsTrue(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Four, hand.GetThreeValue());
+      Assert.AreEqual(Cards.Value.King, hand.GetHighestCardValue());
+    }
+
+    [TestMethod]
+    public void TestTwoPairs()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("KD KC 4H 3D 4S");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsTrue(hand.HasTwoPairs());
+      Assert.IsTrue(hand.HasPair());
+      Assert.AreEqual(Cards.Value.King, hand.GetFirstPairValue());
+      Assert.AreEqual(Cards.Value.Four, hand.GetSecondPairValue());
+      Assert.AreEqual(Cards.Value.Three, hand.GetHighestCardValue());
+    }
+
+    [TestMethod]
+    public void TestPair()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("8D 2C 3H 4D 3S");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsTrue(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Three, hand.GetFirstPairValue());
+      Assert.AreEqual(Cards.Value.Eight, hand.GetHighestCardValue());
+    }
+
+    [TestMethod]
+    public void TestHighest()
+    {
+      Poker.Hand hand = Poker.Hand.Parse("8H 2H 3H 4H JS");
+      Assert.IsFalse(hand.IsStraightFlush());
+      Assert.IsFalse(hand.IsStraight());
+      Assert.IsFalse(hand.IsFlush());
+      Assert.IsFalse(hand.HasFour());
+      Assert.IsFalse(hand.IsFullhouse());
+      Assert.IsFalse(hand.HasThree());
+      Assert.IsFalse(hand.HasTwoPairs());
+      Assert.IsFalse(hand.HasPair());
+      Assert.AreEqual(Cards.Value.Jack, hand.GetHighestCardValue());
+    }
+
   }
 }

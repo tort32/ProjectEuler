@@ -18,8 +18,6 @@ namespace ProjectEuler.Problems
       {
         Poker.Hand hand1 = new Poker.Hand(s.player1);
         Poker.Hand hand2 = new Poker.Hand(s.player2);
-        //if (hand1.getRank() > hand2.getRank())
-        //  ++wins;
         try
         {
           int score = hand1.CompareTo(hand2);
@@ -33,12 +31,6 @@ namespace ProjectEuler.Problems
         }
       }
       return wins;
-    }
-
-    private static ulong GetRank(Cards.Set hand)
-    {
-      Poker.Hand pocker = new Poker.Hand(hand);
-      return pocker.GetRank();
     }
 
     private IEnumerable<Poker.Session> GetSessions()

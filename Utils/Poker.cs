@@ -32,15 +32,16 @@ namespace ProjectEuler.Utils
     public class Hand : IComparable
     {
       protected readonly Cards.Set hand;
-      protected readonly bool isFlush;
-      protected readonly int straightIdx;
-      protected readonly int fourIdx;
-      protected readonly int threeIdx;
-      protected readonly int[] pairIdx;
-      protected readonly int[] highestIdx;
+      private readonly bool isFlush;
+      private readonly int straightIdx;
+      private readonly int fourIdx;
+      private readonly int threeIdx;
+      private readonly int[] pairIdx;
+      private readonly int[] highestIdx;
 
       public Hand(Cards.Set hand)
       {
+        Debug.Assert(hand.Count() == 5);
         this.hand = hand;
         this.straightIdx = -1;
         this.fourIdx = -1;
@@ -53,7 +54,7 @@ namespace ProjectEuler.Utils
           if (STRAIGHT_EXCLUSIVE[i].None(hand))
           {
             // Check all cards are differ
-            int differCount = SINGLE_KIND.Select((single) => single.Fits(hand)).Count();
+            int differCount = SINGLE_KIND.Where((single) => single.Fits(hand)).Count();
             if (differCount == 5)
             {
               this.straightIdx = i;
@@ -94,7 +95,7 @@ namespace ProjectEuler.Utils
               break;
             }
           }
-          if (this.threeIdx == -1 || this.pairIdx[0] != -1)
+          if (this.pairIdx[0] != -1 && this.threeIdx == -1)
           {
             // Search the second pair
             int prevIdx = (this.pairIdx[0] == -1) ? 0 : this.pairIdx[0];
@@ -170,38 +171,37 @@ namespace ProjectEuler.Utils
 
       public Cards.Value GetStraightHighestValue()
       {
-        Debug.Assert(straightIdx != -1, "Has no Straight");
-        return Cards.Value.Ace - fourIdx;
+        return Cards.Value.Ace - straightIdx;
       }
 
       public Cards.Value GetFourValue()
       {
-        Debug.Assert(fourIdx != -1, "Has no Four");
         return Cards.Value.Ace - fourIdx;
       }
 
       public Cards.Value GetThreeValue()
       {
-        Debug.Assert(threeIdx != -1, "Has no Three");
         return Cards.Value.Ace - threeIdx;
       }
 
       public Cards.Value GetFirstPairValue()
       {
-        Debug.Assert(pairIdx[0] != -1, "Has no Pair");
         return Cards.Value.Ace - pairIdx[0];
       }
 
       public Cards.Value GetSecondPairValue()
       {
-        Debug.Assert(pairIdx[1] != -1, "Has no second Pair");
         return Cards.Value.Ace - pairIdx[1];
       }
 
       public Cards.Value GetHighestCardValue()
       {
-        Debug.Assert(highestIdx[0] != -1);
-        return Cards.Value.Ace - highestIdx[0];
+        return GetHighestCardValue(0);
+      }
+
+      public Cards.Value GetHighestCardValue(int index)
+      {
+        return Cards.Value.Ace - highestIdx[index];
       }
 
       public int StraightCompareTo(Hand other)
@@ -410,45 +410,6 @@ namespace ProjectEuler.Utils
 
       const int STRAIGHT_COUNT = 9;
       const int VALUES_COUNT = 13;
-      const ulong Rank_HighCard = 1; // 13
-      const ulong Rank_OnePair = Rank_HighCard * 14; // 13
-      const ulong Rank_TwoPairs = Rank_OnePair * 14; // 13
-      const ulong Rank_ThreeOfAKind = Rank_TwoPairs * 14; // 13
-      const ulong Rank_Straight = Rank_ThreeOfAKind * 14; // 9
-      const ulong Rank_Flush = Rank_Straight * 10; // 1
-      const ulong Rank_FullHouse = Rank_Flush * 2; // 1
-      const ulong Rank_FourOfAKind = Rank_FullHouse * 2; // 13
-      const ulong Rank_StraightFlush = Rank_FourOfAKind * 14; // 9
-      const ulong Rank_RoyalFlush = Rank_StraightFlush * 10;
-
-      public ulong GetRank()
-      {
-        ulong rank = 0;
-        if (isFlush)
-          rank += Rank_Flush;
-        if (straightIdx != -1)
-          rank += Rank_Straight * (ulong)(STRAIGHT_COUNT - straightIdx);
-        if (isFlush && straightIdx != -1)
-        {
-          if (straightIdx == 0)
-            rank += Rank_RoyalFlush;
-          else
-            rank += Rank_StraightFlush * (ulong)(STRAIGHT_COUNT - straightIdx);
-        }
-        if (fourIdx != -1)
-          rank += Rank_FourOfAKind * (ulong)(VALUES_COUNT - fourIdx);
-        if (threeIdx != -1 && pairIdx[0] != -1)
-          rank += Rank_FullHouse;
-        if (threeIdx != -1)
-          rank += Rank_ThreeOfAKind * (ulong)(VALUES_COUNT - threeIdx);
-        if (pairIdx[1] != -1)
-          rank += Rank_TwoPairs * (ulong)(VALUES_COUNT - pairIdx[1]);
-        if (pairIdx[0] != -1)
-          rank += Rank_OnePair * (ulong)(VALUES_COUNT - pairIdx[0]);
-        if (highestIdx[0] != -1)
-          rank += Rank_HighCard * (ulong)(VALUES_COUNT - highestIdx[0]);
-        return rank;
-      }
 
       // Flush = All cards of the same suit.
       public static readonly Cards.Combination FLUSH_INCLUSIVE =
