@@ -14,6 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -96,6 +96,7 @@
     <Compile Include="Problems\Problem32.cs" />
     <Compile Include="Problems\Problem34.cs" />
     <Compile Include="Problems\Problem40.cs" />
+    <Compile Include="Problems\Problem42.cs" />
     <Compile Include="Problems\Problem54.cs" />
     <Compile Include="Problems\Problem67.cs" />
     <Compile Include="Problems\Problem10.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Problems\Problem14.cs" />
     <Compile Include="Problems\Problem16.cs" />
     <Compile Include="Problems\Problem17.cs" />
+    <Compile Include="Problems\Problem43.cs" />
     <Compile Include="Problems\Problem7.cs" />
     <Compile Include="ProblemBase.cs" />
     <Compile Include="Problems\Problem8.cs" />
@@ -116,10 +118,13 @@
     <Compile Include="Utils\BigNumber.cs" />
     <Compile Include="Utils\BitOperations.cs" />
     <Compile Include="Utils\Cards.cs" />
+    <Compile Include="Utils\DecimalPermutations.cs" />
     <Compile Include="Utils\Dividers.cs" />
     <Compile Include="Utils\Factorial.cs" />
     <Compile Include="Utils\Poker.cs" />
     <Compile Include="Utils\PrimeNumbers.cs" />
+    <Compile Include="Utils\TimeUtil.cs" />
+    <Compile Include="Utils\Word.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -132,6 +137,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\p042_words.txt" />
     <EmbeddedResource Include="Resources\p054_poker.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
