@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProjectEuler.Utils
+namespace Utils
 {
   class PrimeNumbers : IEnumerable<ulong>
   {
@@ -131,7 +131,8 @@ namespace ProjectEuler.Utils
       private static long[] mSearchPrimeIntValueDiffs = new long[mSearchPrimeMaxRow];
       private static double mSearchPrimeExtRatio;
 
-      static IndexLookupTable() {
+      static IndexLookupTable()
+      {
         for (int i = 0; i < mSearchPrimeMaxRow; ++i)
         {
           mSearchPrimeIntIndexDiffs[i] = mSearchPrimeIndices[i + 1] - mSearchPrimeIndices[i];

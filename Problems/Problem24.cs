@@ -1,7 +1,6 @@
-using ProjectEuler;
-using ProjectEuler.Utils;
+using Utils;
 
-internal class Problem24 : ProblemBase
+class Problem24 : ProblemBase
 {
   public ulong Solve()
   {

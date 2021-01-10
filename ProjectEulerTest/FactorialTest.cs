@@ -1,22 +1,18 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProjectEuler.Utils;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Utils;
 
-namespace ProjectEulerTest
+[TestClass]
+public class FactorialTest
 {
-    [TestClass]
-    public class FactorialTest
+  [TestMethod]
+  public void TestSequence()
+  {
+    Assert.AreEqual(1L, Factorial.Get(0));
+    long fact = 1L;
+    for (int n = 1; n < 20; ++n)
     {
-        [TestMethod]
-        public void TestSequence()
-        {
-            Assert.AreEqual(1L, Factorial.Get(0));
-            long fact = 1L;
-            for(int n = 1; n < 20; ++n)
-            {
-                fact *= n;
-                Assert.AreEqual(fact, Factorial.Get(n));
-            }
-        }
+      fact *= n;
+      Assert.AreEqual(fact, Factorial.Get(n));
     }
+  }
 }

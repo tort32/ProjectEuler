@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using ProjectEuler;
-using ProjectEuler.Utils;
+using Utils;
 
-internal class Problem45 : ProblemBase
+class Problem45 : ProblemBase
 {
   const int TRI_MAX = 60000;
   const int PENT_MAX = TRI_MAX * 5 / 3;

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using ProjectEuler;
-using ProjectEuler.Utils;
+using Utils;
 
-internal class Problem44 : ProblemBase
+class Problem44 : ProblemBase
 {
   const int MAX = 3000;
   public ulong Solve()

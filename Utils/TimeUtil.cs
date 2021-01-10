@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ProjectEuler.Utils
+namespace Utils
 {
   /*
    * Rough execution time measurement routine.

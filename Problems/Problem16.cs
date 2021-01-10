@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ProjectEuler;
-using ProjectEuler.Utils;
+﻿using Utils;
 
-internal class Problem16 : ProblemBase
+class Problem16 : ProblemBase
 {
   private const int DIGITS_COUNT = 302;
 

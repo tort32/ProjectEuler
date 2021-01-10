@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ProjectEuler.Utils
+namespace Utils
 {
-  class Poker {
+  class Poker
+  {
     public struct Session
     {
       public readonly Cards.Set player1;

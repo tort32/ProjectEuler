@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ProjectEuler.Utils;
+﻿using Utils;
 
-namespace ProjectEuler.Problems
+class Problem23 : ProblemBase
 {
-  class Problem23 : ProblemBase
+  public ulong Solve()
   {
-    public ulong Solve()
-    {
-      return Dividers.GetSumOfDividers(1);
-    }
+    return Dividers.GetSumOfDividers(1);
   }
 }

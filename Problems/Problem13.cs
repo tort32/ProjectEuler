@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using ProjectEuler;
-using ProjectEuler.Utils;
+using Utils;
 
 // Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
-internal class Problem13 : ProblemBase
+class Problem13 : ProblemBase
 {
   const int DIGITS_MAX = 55;
 

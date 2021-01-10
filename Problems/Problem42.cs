@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using ProjectEuler;
-using ProjectEuler.Utils;
+using Utils;
 
-internal class Problem42 : ProblemBase
+class Problem42 : ProblemBase
 {
   private const int WORD_LENGHT_MAX = 14; // Queried from words list
   private const int LETTER_VALUE_MAX = 26;
