@@ -82,6 +82,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Problems\Problem56.cs" />
+    <Compile Include="Problems\Problem45.cs" />
+    <Compile Include="Problems\Problem44.cs" />
     <Compile Include="Problems\Problem20.cs" />
     <Compile Include="Problems\Problem21.cs" />
     <Compile Include="Problems\Problem22.cs" />
@@ -98,7 +101,7 @@
     <Compile Include="Problems\Problem40.cs" />
     <Compile Include="Problems\Problem42.cs" />
     <Compile Include="Problems\Problem54.cs" />
-    <Compile Include="Problems\Problem67.cs" />
+    <Compile Include="Problems\Problem18.cs" />
     <Compile Include="Problems\Problem10.cs" />
     <Compile Include="Problems\Problem11.cs" />
     <Compile Include="Problems\Problem12.cs" />
@@ -112,7 +115,7 @@
     <Compile Include="Problems\Problem8.cs" />
     <Compile Include="Problems\Problem39.cs" />
     <Compile Include="Problems\Problem9.cs" />
-    <Compile Include="Problems\Problem18.cs" />
+    <Compile Include="Problems\Problem67.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BigNumber.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Utils\DecimalPermutations.cs" />
     <Compile Include="Utils\Dividers.cs" />
     <Compile Include="Utils\Factorial.cs" />
+    <Compile Include="Utils\PolygonalNumbers.cs" />
     <Compile Include="Utils\Poker.cs" />
     <Compile Include="Utils\PrimeNumbers.cs" />
     <Compile Include="Utils\TimeUtil.cs" />

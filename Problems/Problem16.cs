@@ -2,28 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ProjectEuler;
 using ProjectEuler.Utils;
 
-namespace ProjectEuler.Problems
+internal class Problem16 : ProblemBase
 {
-  class Problem16 : ProblemBase
-  {
-    private const uint DIGITS_COUNT = 302;
+  private const int DIGITS_COUNT = 302;
 
-    public ulong Solve()
+  public ulong Solve()
+  {
+    BigNumber n = new BigNumber(DIGITS_COUNT, 2);
+    for (int i = 1; i < 1000; ++i)
     {
-      BigNumber n = new BigNumber(DIGITS_COUNT, 2);
-      for (int i = 1; i < 1000; ++i)
-      {
-        BigNumber m = new BigNumber(n);
-        n.Add(m); // n + n = 2 * n
-      }
-      uint sum = 0;
-      for (int i = 0; i < DIGITS_COUNT; ++i)
-      {
-        sum += n.GetDigitAt(i);
-      }
-      return sum;
+      BigNumber m = new BigNumber(n);
+      n.Add(m); // n + n = 2 * n
     }
+    uint sum = n.GetSumOfDigits();
+    return sum;
   }
 }
